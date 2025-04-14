@@ -1,34 +1,19 @@
-version: "3"
+version: '3.8'
 
 services:
   backend:
     build: ./backend
-    ports:
-      - "5000:5000"
-    networks:
-      - app-network
-
+    container_name: node-backend
+  
   frontend:
     build: ./frontend
+    container_name: npm-frontend
+
+  apache:
+    build: ./apache
+    container_name: apache-router
     ports:
-      - "3000:3000"
-    networks:
-      - app-network
-    depends_on:
-      - backend
-    
-  waf:
-    build: ./waf
-    ports:
-      - "8080:8080"
+      - "80:80"
     depends_on:
       - backend
       - frontend
-    networks:
-      - app-network
-    volumes:
-      - ./waf/logs:/var/log/apache2
-
-
-networks:
-  app-network:

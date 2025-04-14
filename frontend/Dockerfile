@@ -1,17 +1,12 @@
 FROM node:18
 
 WORKDIR /app
-
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install
-
 COPY . .
 
-RUN npm run build
+RUN npm install && npm run build
 
-EXPOSE 3000
-
-# Use a simple server to serve React build folder
+# Install a lightweight server to serve static files
 RUN npm install -g serve
-CMD ["serve", "-s", "build", "-l", "3000"]
+
+# Serve the static build
+CMD ["serve", "-s", "build", "-l", "8080"]

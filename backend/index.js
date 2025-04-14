@@ -1,12 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 
 app.use(cors());
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express backend!' });
+  console.log(`Called '/api'`)
+});
+
+app.get('/test', (req, res) => {
+  res.json({ message: 'Hello from Express backend!' });
+  console.log(`Called '/api/test'`)
 });
 
 app.listen(PORT, '0.0.0.0', () => {
